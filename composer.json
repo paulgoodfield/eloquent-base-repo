@@ -1,0 +1,14 @@
+{
+	"name": "paulgoodfield/eloquent-base-repo",
+	"description": "A base repository pattern using the Eloquent ORM",
+	"license": "MIT",
+	"require": {
+		"paulgoodfield/base-repo-interface": "dev-master",
+		"laravel/framework": "5.3.*"
+	},
+	"autoload": {
+		"psr-0": {
+			"PaulGoodfield\\EloquentBaseRepo": "src"
+		}
+	}
+}
