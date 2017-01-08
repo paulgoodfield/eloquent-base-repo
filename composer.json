@@ -3,7 +3,7 @@
 	"description": "A base repository pattern using the Eloquent ORM",
 	"license": "MIT",
 	"require": {
-		"paulgoodfield/base-repo-interface": "dev-master",
+		"paulgoodfield/base-repo-interface": "0.1-alpha",
 		"laravel/framework": "5.3.*"
 	},
 	"autoload": {
