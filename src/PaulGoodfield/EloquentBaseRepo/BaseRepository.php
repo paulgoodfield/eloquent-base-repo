@@ -116,10 +116,10 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 
 	/**
 	 * Delete record
-	 * @param  array  $ids  Ids of records to delete
-	 * @return integer Number of deletes
+	 * @param  integer  $id  Id of record to delete
+	 * @return integer       Number of deletes
 	 */
-	public function delete($id)
+	public function delete(int $id)
 	{
 		return $this->model->destroy($id);
 	}
