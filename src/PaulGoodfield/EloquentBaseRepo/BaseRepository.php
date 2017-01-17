@@ -132,7 +132,7 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 	 * @param  array   $additional  Array of additional data to be saved in pivot table
 	 * @return void
 	 */
-	public function attach(int $id, string $relation, int $relationId, array $additional)
+	public function attach(int $id, string $relation, int $relationId, $additional = [])
 	{
 		// Find record
 		$record = $this->model->findOrFail($id);
