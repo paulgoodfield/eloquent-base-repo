@@ -119,7 +119,7 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 	 * @param  integer  $id  Id of record to delete
 	 * @return integer       Number of deletes
 	 */
-	public function delete(int $id)
+	public function delete($id)
 	{
 		return $this->model->destroy($id);
 	}
@@ -132,7 +132,7 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 	 * @param  array   $additional  Array of additional data to be saved in pivot table
 	 * @return void
 	 */
-	public function attach(int $id, string $relation, int $relationId, $additional = [])
+	public function attach($id, string $relation, $relationId, $additional = [])
 	{
 		// Find record
 		$record = $this->model->findOrFail($id);
@@ -148,7 +148,7 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 	 * @param  int     $relationId  Id of related record
 	 * @return void
 	 */
-	public function detach(int $id, string $relation, int $relationId)
+	public function detach($id, string $relation, $relationId)
 	{
 		// Find record
 		$record = $this->model->findOrFail($id);
