@@ -36,7 +36,16 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 	 */
 	public function find($id, $columns = array('*'))
 	{
-		$model = $this->model->withTrashed()->find($id, $columns);
+		if ($this->usesSoftDeletes($this->model))
+		{
+			$model = $this->model->withTrashed();
+		}
+		else
+		{
+			$model = $this->model;
+		}
+
+		$model = $model->find($id, $columns);
 
 		if (is_null($model))
 		{
@@ -73,7 +82,32 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 				$query->orderBy($key, $val);
 			}
 		}
-		return $this->convertCollection($query->withTrashed()->get());
+
+		if ($this->usesSoftDeletes($this->model))
+		{
+			$collection = $query->withTrashed()->get();
+		}
+		else
+		{
+			$collection = $query->get();
+		}
+
+		return $this->convertCollection($collection);
+	}
+
+	/**
+	 * Determines if current model uses soft deletes
+	 * @return boolean
+	 */
+	private function usesSoftDeletes($model)
+	{
+		$traits = class_uses($model);
+		if (in_array('Illuminate\Database\Eloquent\SoftDeletes', $traits))
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -193,8 +227,7 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 		$return = (object) $model->toArray();
 
 		// Check if model has soft deletes
-		$traits = class_uses($model);
-		if (in_array('Illuminate\Database\Eloquent\SoftDeletes', $traits))
+		if ($this->usesSoftDeletes($model))
 		{
 			$return->trashed = ($model->trashed()) ? true : false;
 		}
