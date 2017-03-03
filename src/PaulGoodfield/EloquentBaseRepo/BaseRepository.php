@@ -224,7 +224,8 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 			return null;
 		}
 
-		$return = (object) $model->toArray();
+		$json   = $model->toJson();
+		$return = json_decode($json);
 
 		// Check if model has soft deletes
 		if ($this->usesSoftDeletes($model))
